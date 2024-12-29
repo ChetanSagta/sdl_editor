@@ -11,19 +11,22 @@ SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 EXEC = sdltuts 
 
+BUILDDIR = build
+SRCDIR = src
+
 # Default target
 all: $(EXEC)
 
 # Linking the executable
 $(EXEC): $(OBJ)
-	$(CXX) $(OBJ) -o $(EXEC) $(SDL2_LIBS) $(LDFLAGS)
+	$(CXX) $(BUILDDIR)/$(OBJ) -o $(BUILDDIR)/$(EXEC) $(SDL2_LIBS) $(LDFLAGS)
 
 # Compiling the object files
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(SDL2_CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(SDL2_CFLAGS) -c $(SRCDIR)/$< -o $(BUILDDIR)/$@
 
 run: $(EXEC)
-	./$(EXEC)
+	./$(BUILDDIR)/$(EXEC)
 
 # Clean up
 clean:
